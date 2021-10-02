@@ -44,21 +44,21 @@ function getAllNodesByType(type) {
             //Get subnodes of selected nodes:
             var subNodes = getSubNodes(selectedNode);
 
-            if(node.isGroup(selectedNode)) {
+            if (node.isGroup(selectedNode)) {
 
                 log('\n' + JSON.stringify(subNodes, null, 4))
                 var listNodoType = getNodesByType(subNodes, type);
                 var list = list.concat(listNodoType);
 
             }
-            
+
             else if ((node.type(selectedNode)) == type) {
 
                 var listNodoTypeAlone = getNodesByType(selectedNodes, type);
                 var list = list.concat(listNodoTypeAlone);
             }
-    
-                
+
+
         }
 
         log("The nodos types are....");
@@ -72,11 +72,6 @@ function getAllNodesByType(type) {
 
 
 }
-
-//Call the function:
-//getAllNodesByType("READ");
-
-
 
 
 /**
@@ -105,8 +100,6 @@ function getSubNodes(selectedNode) {
 
         }
 
-
-
     }
 
     //MessageLog.trace("list nodes ARE............" + listSubnodes);
@@ -116,8 +109,8 @@ function getSubNodes(selectedNode) {
 }
 
 
-function getAllNodesCurrentScene(){
-  
+function getAllNodesCurrentScene() {
+
 }
 
 /**
@@ -185,5 +178,27 @@ function getSelectedNodeType() {
 
     }
     return nodeType;
+
+}
+
+
+/**
+ * Function to add a drawing node, creating its column and link them. 
+ * @param {String}  nodeName name of future node.
+ * @param {Int}     posX     position on X on virtual node view coordinates. 
+ * @param {Int}     posY     position on Y on virtual node view coordinates. 
+ */
+function addDrawingNode(nodeName, posX, posY) {
+
+    var nodeName;
+    var elemID = element.add(nodeName, "COLOR", 12, "SCAN", "TVG");
+    column.add(nodeName, "DRAWING");
+    column.setElementIdOfDrawing(nodeName, elemID);
+
+    var createdNode = node.add((node.root()), nodeName, "READ", posX, posY, 0);
+    node.linkAttr(createdNode, "DRAWING.ELEMENT", nodeName);
+
+    return createdNode;
+
 
 }
